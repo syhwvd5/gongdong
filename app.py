@@ -38,11 +38,18 @@ new_budget = st.number_input("예산", min_value = 0)
 new_description = st.text_input("한줄 설명")
 
 if st.button("장소 추가"):
-    if new_name != "이름":
-        places = add_place(places, new_name, new_region, new_indoor, new_budget, new_description)
-        st.success("장소가 추가되었습니다.")
+    if new_name != "":
+        exists = False
+        for place in places:
+            if place["이름"] == new_name:
+                exists = True
+        if exists:
+            st.warning("이미 그 장소가 있습니다")
+        else:
+            places = add_place(places, new_name, new_region, new_indoor, new_budget, new_description)
+            st.success("장소가 추가되었습니다.")
     else:
-        st.warning("이미 해당 장소가 있습니다")
+        st.warning("장소 이름을 입력하세요")
         
 
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
