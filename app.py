@@ -14,11 +14,29 @@ def get_recommendations(data, region, indoor):
             result.append(place)
     return result
 
-def add_place():
-    
-
+def add_place(data, name, region, indoor, budget, description):
+    result = []
+    for place in data:
+        result.append(place)
+    new_place = {
+        "이름": name,
+        "지역": region,
+        "실내여부": indoor,
+        "예산": budget,
+        "한줄 설명": description
+    }
+    result.append(new_place)
+    return result
 
 st.title("강원 청소년 생활 도우미")
+
+st.subheader("장소 추가하기")
+new_name = st.text_input("장소 이름")
+new_region = st.selectbox("지역", ["강릉", "속초", "춘천"])
+new_indoor = st.radio("실내 여부", ["실내", "실외"])
+new_budget = st.number_input("예산", min_value = 0, max_value = 100000)
+new_description = st.text_input("한줄 설명") 
+
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
 selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
 
