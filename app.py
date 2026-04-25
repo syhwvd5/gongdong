@@ -44,7 +44,7 @@ if st.button("장소 추가"):
             if place["이름"] == new_name:
                 exists = True
         if exists:
-            st.warning("이미 그 장소가 있습니다")
+            st.warning("이미 '이름'이(가) 있습니다")
         else:
             places = add_place(places, new_name, new_region, new_indoor, new_budget, new_description)
             st.success("장소가 추가되었습니다.")
