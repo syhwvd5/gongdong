@@ -42,7 +42,7 @@ if st.button("장소 추가"):
         places = add_place(places, new_name, new_region, new_indoor, new_budget, new_description)
         st.success("장소가 추가되었습니다.")
     else:
-        st.warning("이미 해 장소가 있습니다")
+        st.warning("이미 해당 장소가 있습니다")
         
 
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
