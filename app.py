@@ -34,7 +34,7 @@ st.subheader("장소 추가하기")
 new_name = st.text_input("장소 이름")
 new_region = st.selectbox("지역", ["강릉", "속초", "춘천"])
 new_indoor = st.radio("실내 여부", ["실내", "실외"])
-new_budget = st.number_input("예산", min_value = 0, max_value = 100000)
+new_budget = st.number_input("예산")
 new_description = st.text_input("한줄 설명") 
 
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
