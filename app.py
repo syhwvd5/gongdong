@@ -56,7 +56,7 @@ new_budget = st.number_input("예산", min_value=0)
 new_description = st.text_input("한줄 설명")
 
 
-if new_name != "":
+if len(new_name) != len(set(st.session_state.regions))
     exists = False
     for place in st.session_state.placelist:
         if place["이름"] == new_name:
