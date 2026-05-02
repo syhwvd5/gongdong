@@ -1,78 +1,72 @@
 import streamlit as st
 
-if "placelist" not in st.session_state:
-    st.session_state.placelist = [
-        {"이름": "가톨릭관동대학교", "지역": "강릉", "잔디상태": "좋음", "시간당 사용료": 0, "한줄설명": "잔디가 좋지만, 관객석이 더러운 곳"},
-        {"이름": "문성고등학교", "지역": "강릉", "잔디상태": "좋음", "시간당 사용료": 0, "한줄설명": "고지대에 있어서 산에서 축구하는 느낌이 나는 곳"},
-        {"이름": "강릉고등학교", "지역": "강릉", "잔디상태": "좋음", "시간당 사용료": 0, "한줄설명": "소나무가 많아서 공기가 좋은곳"},
-        {"이름": "제일고등학교", "지역": "강릉", "잔디상태": "좋음", "시간당 사용료": 0, "한줄설명": "축구부가 있어 최고의 잔디를 느낄 수 있는 곳"},
-        {"이름": "강원대학교 강릉캠퍼스", "지역": "강릉", "잔디상태": "안좋음", "시간당 사용료": 20000, "한줄설명": "밤 11시까지 불이 켜지는 밤에도 축구하기 좋은 곳"},
-        {"이름": "강남축구공원", "지역": "강릉", "잔디상태": "안좋음", "시간당 사용료": 50000, "한줄설명": "풋살장2개, 축구장2개가 있는 곳"},
-        {"이름": "엑스포잔디광장", "지역": "속초", "잔디상태": "좋음", "시간당 사용료": 0, "한줄설명": "청초호 옆에 있어 호수도 갈 수 있지만, 골대가 없는 곳"},
-        {"이름": "공지천인조잔디구장", "지역": "춘천", "잔디상태": "좋음", "시간당 사용료": 10000, "한줄설명": "손흥민이 어린시절 아버지와 함께 훈련하던 곳"}
-    ]
+if "places" not in st.session_state:
+    st.session_state.places=[
+    {"이름":"강원 메이커스페이스","지역":"춘천","대학교 내 여부":"X","예약 가능 여부":"O","예약 사이트":"stbc.or.kr","전화번호":"033-245-6560"},
+    {"이름":"G-MAKER LAB","지역":"양양","대학교 내 여부":"O","예약 가능 여부":"O","예약 사이트":"전화상담만 가능","전화번호":"033-660-8262,033-660-8266"},
+    {"이름":"KNU 메이커스페이스","지역":"춘천","대학교 내 여부":"O","예약 가능 여부":"O","예약 사이트":"knumakerspace.com","전화번호":"033-250-7314"},
+    {"이름":"강릉제작소","지역":"강릉","대학교 내 여부":"X","예약 가능 여부":"O","예약 사이트":"www.gnmakerspace.com","전화번호":"033-650-3362"},
+    {"이름":"JOY&DIY 메이커스페이스","지역":"원주","대학교 내 여부":"O","예약 가능 여부":"O","예약 사이트":"https://maker.halla.ac.kr/main/index.php","전화번호":"033-760-1364"},
+    {"이름":"고성 메이커스페이스","지역":"고성","대학교 내 여부":"X","예약 가능 여부":"X","예약 사이트":"직접방문","전화번호":"033-123-4567"} #가짜정보(테스트용)
+]
+def add_place(places):
+    name = st.text_input("이름")
+    region = st.text_input("지역")
+    univer = st.radio("대학교 내 여부", ["O","X"])
+    reserve = st.radio("예약 가능 여부", ["O","X"])
+    site = st.text_input("예약 사이트")
+    phone = st.text_input("전화번호")
 
-def show_all_places(place_list):
+    if st.button("장소 추가"):
+        new_place = {
+            "이름": name,
+            "지역": region,
+            "대학교 내 여부": univer,
+            "예약 가능 여부": reserve,
+            "예약 사이트": site,
+            "전화번호": phone
+        }
+
+        st.session_state.places.append(new_place)
+        st.write("장소가 추가되었습니다.")
+    else:
+        st.write("정보를 입력해주세요.")
+        
+def show_all(places):
     st.subheader("전체 장소 보기")
-    for place in place_list:
-        st.write(f"이름: {place['이름']} | 지역: {place['지역']} | 사용료: {place['시간당 사용료']}원")
-        st.write(f"설명: {place['한줄설명']}")
+    for place in places:
+        st.write("장소 이름은",place["이름"],"입니다")
+        st.write("지역은",place["지역"],"입니다")
+        st.write("대학교 내 여부는",place["대학교 내 여부"],"입니다")
+        st.write("예약 가능 여부는",place["예약 가능 여부"],"입니다")
+        st.write("예약 사이트는",place["예약 사이트"],"입니다")
+        st.write("전화번호는",place["전화번호"],"입니다")
         st.write("---")
-
-def find_places(place_list, region, turf_condition, max_fee):
+        
+def get_recommendations(places, region, reserve):
     result = []
-    for place in place_list:
-        if (place["지역"] == region and 
-            place["잔디상태"] == turf_condition and 
-            int(place["시간당 사용료"]) <= max_fee):
+
+    for place in places:
+        if place["지역"] == region and place["예약 가능 여부"] == reserve:
             result.append(place)
     return result
 
-def add_place(name, region, turf_condition, fee, description):
-    if name == "":
-        st.warning("장소 이름은 반드시 입력해주세요.")
+st.title("강원 청소년 생활 도우미")
+
+if st.button("전체 보기"):
+    show_all(st.session_state.places)
+if st.button("추천 보기"):
+    selected_region = st.selectbox("지역을 선택하세요", ["강릉","춘천","양양","원주","고성"])
+    selected_reserve = st.radio("예약 가능 여부를 선택하세요", ["O", "X"])
+    recommendations = get_recommendations(st.session_state.places, selected_region, selected_reserve)
+
+    if len(recommendations) != 0:
+        st.write("조건에 맞는 장소가 없습니다")
+        st.write("장소를 추가하고 싶으시면 **장소 추가** 버튼을 눌러 주세요.")
+        add_place(st.session_state.places)
     else:
-        st.session_state.placelist.append({
-            "이름": name, "지역": region, "잔디상태": turf_condition, "시간당 사용료": fee, "한줄설명": description
-        })
-        st.success("새 장소가 추가되었습니다.")
-
-st.title("강원생활도우미앱")
-
-menu = st.sidebar.selectbox("기능을 선택하세요", ["전체 보기", "무료 장소 보기", "추천 받기", "장소 추가"])
-
-current_placelist = st.session_state.placelist
-
-if menu == "전체 보기":
-    show_all_places(current_placelist)
-
-elif menu == "무료 장소 보기":
-    st.subheader("무료 장소 목록")
-    for place in current_placelist:
-        if place["시간당 사용료"] == 0:
-            st.write(f"이름: {place['이름']} ({place['지역']})")
-            st.write(f"설명: {place['한줄설명']}")
+        for place in recommendations:
+            st.write("추천장소는",place["이름"],"입니다")
+            st.write("예약 사이트는",place["예약 사이트"],"입니다")
+            st.write("전화번호는",place["전화번호"],"입니다")
             st.write("---")
-
-elif menu == "추천 받기":
-    region = st.selectbox("지역", ["강릉", "속초", "춘천"])
-    turf = st.selectbox("잔디상태", ["좋음", "안좋음"])
-    budget = st.number_input("예산", min_value=0, value=50000)
-    if st.button("추천 받기"):
-        result = find_places(current_placelist, region, turf, budget)
-        if result:
-            for p in result:
-                st.write(f"{p['이름']}: {p['한줄설명']}")
-        else:
-            st.write("조건에 맞는 장소가 없습니다.")
-
-elif menu == "장소 추가":
-    with st.form("add_form"):
-        name = st.text_input("장소 이름")
-        region = st.selectbox("지역", ["강릉", "속초", "춘천"])
-        turf = st.selectbox("잔디", ["좋음", "안좋음"])
-        fee = st.number_input("사용료", min_value=0)
-        desc = st.text_input("설명")
-        if st.form_submit_button("추가"):
-            add_place(name, region, turf, fee, desc)
-            st.success("추가 완료")
