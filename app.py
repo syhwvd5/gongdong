@@ -56,18 +56,18 @@ new_budget = st.number_input("예산", min_value=0)
 new_description = st.text_input("한줄 설명")
 
 
-    if new_name != "":
-        exists = False
-        for place in st.session_state.placelist:
-            if place["이름"] == new_name:
-                exists = True
-        if exists:
-            st.warning("이미 그 장소가 있습니다")
-        else:
-            st.session_state.placelist = add_place(st.session_state.placelist, new_name, new_place_region, new_indoor, new_budget, new_description)
-            st.success("장소가 추가되었습니다.")
+if new_name != "":
+    exists = False
+    for place in st.session_state.placelist:
+        if place["이름"] == new_name:
+            exists = True
+    if exists:
+        st.warning("이미 그 장소가 있습니다")
     else:
-        st.warning("장소 이름을 입력하세요")
+        st.session_state.placelist = add_place(st.session_state.placelist, new_name, new_place_region, new_indoor, new_budget, new_description)
+        st.success("장소가 추가되었습니다.")
+else:
+    st.warning("장소 이름을 입력하세요")
         
 
 
