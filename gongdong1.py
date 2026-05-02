@@ -53,6 +53,8 @@ def get_recommendations(places, region, reserve):
 
 st.title("강원 청소년 생활 도우미")
 
+menu = st.selectbox("메뉴를 선택하세요", ["전체 보기", "추천 보기"])
+
 if menu == "추천 보기":
     selected_region = st.selectbox("지역을 선택하세요", ["강릉","춘천","양양","원주","고성"])
     selected_reserve = st.radio("예약 가능 여부를 선택하세요", ["O", "X"])
@@ -68,5 +70,5 @@ if menu == "추천 보기":
             st.write("전화번호는",place["전화번호"],"입니다")
             st.write("---")
 
-if st.button("전체 보기"):
+else st.button("전체 보기"):
     show_all(st.session_state.places)
