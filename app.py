@@ -34,9 +34,9 @@ def add_place(data, name, region, indoor, budget, description):
 
 st.title("강원 청소년 생활 도우미")
 
-menu = st.radio("메뉴를 선택하세요", ["지역 추가하기", "장소 추가하기", "추천 보기"])
 
-if menu == "지역 추가하기":
+
+
     new_region = st.text_input("새 지역 입력")
 
     if st.button("지역 추가"):
@@ -49,14 +49,14 @@ if menu == "지역 추가하기":
         else:
             st.warning("지역 이름을 입력하세요.")
 
-elif menu == "장소 추가하기":
+
     new_name = st.text_input("이름")
     new_region = st.selectbox("지역", st.session_state.regions)
     new_indoor = st.radio("실내 여부", ["실내", "실외"])
     new_budget = st.number_input("예산", min_value=0)
     new_description = st.text_input("한줄 설명")
 
-    if st.button("장소 추가"):
+
         if new_name != "":
             exists = False
             for place in st.session_state.placelist:
@@ -71,7 +71,7 @@ elif menu == "장소 추가하기":
             st.warning("장소 이름을 입력하세요")
         
 
-elif menu == "추천 보기":
+
     selected_region = st.selectbox("지역을 선택하세요", st.session_state.regions)
     selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
 
