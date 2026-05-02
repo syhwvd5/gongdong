@@ -70,6 +70,5 @@ if menu == "추천 보기":
             st.write("전화번호는",place["전화번호"],"입니다")
             st.write("---")
 
-else:
-    menu == "전체 보기"
+elif menu == "전체 보기":
     show_all(st.session_state.places)
