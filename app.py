@@ -85,19 +85,3 @@ elif menu == "추천 보기":
                 st.write(place["이름"])
                 st.write(place["한줄 설명"])
                 st.write("---")
-        
-
-
-    selected_region = st.selectbox("지역을 선택하세요", st.session_state.regions)
-    selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
-
-    if st.button("추천 보기"):
-        recommendations = get_recommendations(st.session_state.placelist, selected_region, selected_indoor)
-
-        if len(recommendations) == 0:
-            st.write("조건에 맞는 장소가 없습니다")
-        else:
-            for place in recommendations:
-                st.write(place["이름"])
-                st.write(place["한줄 설명"])
-                st.write("---")
