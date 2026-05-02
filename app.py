@@ -34,7 +34,7 @@ def add_place(data, name, region, indoor, budget, description):
 
 st.title("강원 청소년 생활 도우미")
 
-menu = st.radio("메뉴를 선택하세요", ["지역 추가", "장소 추가", "추천 보기"])
+menu = st.selectbox("메뉴를 선택하세요", ["지역 추가", "장소 추가", "추천 보기"])
 
 if menu == "지역 추가":
     new_region = st.text_input("새 지역 입력")
