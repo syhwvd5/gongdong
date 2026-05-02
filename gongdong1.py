@@ -71,5 +71,5 @@ if menu == "추천 보기":
             st.write("---")
 
 else:
-    st.button("전체 보기")
+    menu == "전체 보기"
     show_all(st.session_state.places)
