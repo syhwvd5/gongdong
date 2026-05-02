@@ -60,7 +60,7 @@ if st.button("추천 보기"):
     selected_reserve = st.radio("예약 가능 여부를 선택하세요", ["O", "X"])
     recommendations = get_recommendations(st.session_state.places, selected_region, selected_reserve)
 
-    if len(recommendations) != 0:
+    if len(recommendations) == 0:
         st.write("조건에 맞는 장소가 없습니다")
         st.write("장소를 추가하고 싶으시면 **장소 추가** 버튼을 눌러 주세요.")
         add_place(st.session_state.places)
