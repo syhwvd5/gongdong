@@ -34,8 +34,3 @@ region_count = df["지역"].value_counts()
 
 st.subheader("지역별 장소 개수")
 st.bar_chart(region_count)
-
-avg_score = df["평점"].value_counts()
-
-st.subheader("지역별 평점")
-st.bar_chart(avg_score, region_count)
