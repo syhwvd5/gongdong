@@ -33,4 +33,4 @@ else:
 region_count = df["지역"].value_counts()
 
 st.subheader("지역별 장소 개수")
-st.bar_chart(region_count)
+st.bar_chart(region_count, range_scale = 1)
