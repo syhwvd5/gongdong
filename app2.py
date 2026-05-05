@@ -14,4 +14,4 @@ if uploaded_file is not None:
   st.subheader("업로드한 장소 목록")
   st.dataframe(df)
 else:
-  st.info("데이터를 저장한 엑셀(확장자.xlxs)화일을 업로드하세요.")
+  st.info("데이터를 저장한 엑셀 파일을 업로드하세요.")
