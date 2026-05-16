@@ -37,7 +37,35 @@ def get_user_input(df):
         step=1000
     )
 
+def filter_places(df, selected_region, selected_budget):
+    result = df[
+        (df["지역"] == selected_region) &
+        (df["예산"] <= selected_budget)
+    ]
 
+    result = result.sort_values("평점", ascending=False)
+
+    return result
+
+def show_result(result):
+    st.subheader("추천 결과")
+
+    if len(result) > 0:
+        st.dataframe(result)
+    else:
+        st.warning("조건에 맞는 장소가 없습니다. 조건을 바꿔보세요.")
+
+
+def show_charts(df):
+    st.subheader("데이터 시각화")
+
+    st.write("지역별 장소 개수")
+    region_count = df["지역"].value_counts()
+    st.bar_chart(region_count)
+
+    st.write("유형별 장소 개수")
+    type_count = df["유형"].value_counts()
+    st.bar_chart(type_count)
 
 
 
