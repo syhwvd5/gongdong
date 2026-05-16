@@ -9,7 +9,7 @@ def load_data(uploaded_file):
     return df
 
 uploaded_file = st.file_uploader(
-    "장소 데이터 엑셀 파일을 업로드하세요",
+    "장소 데이터 엑셀 파일을 업로드하세요(파일 확장자: [.xlsx])",
     type=["xlsx"]
 )
 
@@ -17,7 +17,15 @@ def show_data(df):
     st.subheader("전체 장소 데이터")
     st.dataframe(df)
 
+def get_user_input(df):
+    selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
 
+    selected_budget = st.number_input(
+        "사용 가능한 예산을 입력하세요",
+        min_value=0,
+        value=10000,
+        step=1000
+    )
 
 
 
