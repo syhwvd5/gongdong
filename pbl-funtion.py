@@ -61,7 +61,7 @@ def show_charts(df):
     st.bar_chart(type_count)
 
 if uploaded_file is not None:
-    menu = st.sidebar.selectbox("메뉴를 선택하세요", ["전체 장소 데이터", "장소 검색 && 데이터 보기"])
+    menu = st.selectbox("메뉴를 선택하세요", ["전체 장소 데이터", "장소 검색 && 데이터 보기"])
     df = load_data(uploaded_file)
 
     if menu == "전체 장소 데이터":
