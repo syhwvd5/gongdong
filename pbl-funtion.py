@@ -73,7 +73,6 @@ if uploaded_file is not None:
         result = filter_places(df, selected_region, selected_budget)
 
         show_result(result)
-
         show_charts(df)
 
 else:
