@@ -4,7 +4,7 @@ import pandas as pd
 st.title("강원생활도우미앱 2.0")
 st.write("엑셀 파일을 업로드하여 조건에 맞는 장소를 추천받아보세요.")
 
-uploaded_file = st.file_uploader(
+uploaded_file = st.sidebar.file_uploader(
     "장소 데이터 엑셀 파일을 업로드하세요(파일 확장자: [.xlsx])",
     type=["xlsx"]
 )
@@ -28,9 +28,9 @@ def filter_places(df, selected_region, selected_budget):
     return result
 
 def get_user_input(df):
-    selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
+    selected_region = st.sidebar.selectbox("지역을 선택하세요", df["지역"].unique())
 
-    selected_budget = st.number_input(
+    selected_budget = st.sidebar.number_input(
         "사용 가능한 예산을 입력하세요",
         min_value=0,
         value=10000,
