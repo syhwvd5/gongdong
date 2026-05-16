@@ -17,6 +17,16 @@ def show_data(df):
     st.subheader("전체 장소 데이터")
     st.dataframe(df)
 
+def filter_places(df, selected_region, selected_budget):
+    result = df[
+        (df["지역"] == selected_region) &
+        (df["예산"] <= selected_budget)
+    ]
+
+    result = result.sort_values("평점", ascending=False)
+
+    return result
+
 def get_user_input(df):
     selected_region = st.selectbox("지역을 선택하세요", df["지역"].unique())
 
