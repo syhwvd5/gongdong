@@ -32,18 +32,5 @@ def show_data(df):
 
 
 
-if uploaded_file is not None:
-    df = load_data(uploaded_file)
 
-    show_data(df)
-
-    selected_region, selected_budget = get_user_input(df)
-
-    result = filter_places(df, selected_region, selected_budget)
-
-    show_result(result)
-
-    show_charts(df)
-
-else:
     st.info("엑셀 파일을 업로드하면 앱이 실행됩니다.")
