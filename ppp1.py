@@ -33,4 +33,4 @@ def show_data(df):
 
 
 
-    st.info("엑셀 파일을 업로드하면 앱이 실행됩니다.")
+
