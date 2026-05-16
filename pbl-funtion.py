@@ -39,15 +39,6 @@ def get_user_input(df):
 
     return selected_region, selected_budget
 
-def filter_places(df, selected_region, selected_budget):
-    result = df[
-        (df["지역"] == selected_region) &
-        (df["예산"] <= selected_budget)
-    ]
-
-    result = result.sort_values("평점", ascending=False)
-
-    return result
 
 def show_result(result):
     st.subheader("추천 결과")
