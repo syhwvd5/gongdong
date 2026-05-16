@@ -76,7 +76,7 @@ if uploaded_file is not None:
         show_charts(df)
 
 else:
-    st.info("엑셀 파일을 업로드하면 앱이 실행됩니다.")
+    st.sidebar.info("엑셀 파일을 업로드하면 앱이 실행됩니다.")
 
 
 
