@@ -3,7 +3,6 @@ import pandas as pd
 
 st.title("강원생활도우미앱 2.0")
 st.write("엑셀 파일을 업로드하여 조건에 맞는 장소를 추천받아보세요.")
-st.write("**업로드해야 할 곳이 안 보이면 왼쪽 위 사이드바를 여세요**")
 
 uploaded_file = st.sidebar.file_uploader(
     "장소 데이터 엑셀 파일을 업로드하세요(파일 확장자: [.xlsx])",
@@ -77,6 +76,7 @@ if uploaded_file is not None:
         show_charts(df)
 
 else:
+    st.info("**업로드해야 할 곳이 안 보이면 왼쪽 위 사이드바를 여세요**")
     st.sidebar.info("엑셀 파일을 업로드하면 앱이 실행됩니다.")
 
 
