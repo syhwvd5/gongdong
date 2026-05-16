@@ -37,6 +37,8 @@ def get_user_input(df):
         step=1000
     )
 
+    return selected_region, selected_budget
+
 def filter_places(df, selected_region, selected_budget):
     result = df[
         (df["지역"] == selected_region) &
