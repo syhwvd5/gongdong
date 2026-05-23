@@ -4,6 +4,8 @@
 import pandas as pd
 import streamlit as st
 
+df = None
+
 def home():
     st.subheader("앱 설명")
     st.write("이 앱은 엑셀 파일을 업로드하고, 장소 데이터와 데이터를 차트로 시각화된 데이터를 확인하고, 조건에 맞는 장소를 검색하는 앱입니다.")
