@@ -62,13 +62,13 @@ if df is not None:
     print_table(df, "업로드한 장소 데이터")
 
     st.markdown("---")
-    st.subheader("🔍 조건별 장소 검색")
+    st.subheader("조건별 장소 검색")
 
     result = get_user_input(df)
     show_filter_places(result)
 
     st.markdown("---")
-    st.subheader("📊 데이터 통계 시각화")
+    st.subheader("데이터 통계 시각화")
 
     count_chart(df, "지역")
     count_chart(df, "유형")
