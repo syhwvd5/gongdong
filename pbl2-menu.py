@@ -66,12 +66,12 @@ def average_chart(df, group, num):
 
 # --- 메인 실행 흐름 ---
 st.title("강원 생활 도우미 2.0")
-st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
 
 df = load_file()
 
 # 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
 if df is None:
+    st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
     st.markdown("---")
     home()
 
