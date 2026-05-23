@@ -57,7 +57,7 @@ st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있
 
 df = load_file()
 
-menu = st.selectbox("메뉴를 선택하세요", ["업로드한 장소 데이터", "장소 검"])
+menu = st.selectbox("메뉴를 선택하세요", ["업로드한 장소 데이터", "장소 검색"])
 
 # 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
 if df is not None:
