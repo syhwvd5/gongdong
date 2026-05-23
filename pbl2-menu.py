@@ -4,6 +4,14 @@
 import pandas as pd
 import streamlit as st
 
+def home():
+    st.subheader("앱 설명")
+    st.write("이 앱은 엑셀 파일을 업로드하고, 장소 데이터와 데이터를 차트로 시각화된 데이터를 확인하고, 조건에 맞는 장소를 검색하는 앱입니다.")
+
+    st.write("엑셀 파일에는 최소한 다음과 같은 데이터가 있어야합니다.")
+
+    example = ["이름", "지역", "유형", "실내여부", "예산", "평점"]
+    st.write(example)
 
 def load_file():
     uploaded_file = st.file_uploader(
@@ -58,12 +66,14 @@ def average_chart(df, group, num):
 st.title("강원 생활 도우미 2.0")
 st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
 
-df = load_file()
+st.markdown("---")
+home()
+st.sidebar(df = load_file())
 
 # 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
 if df is not None:
-    st.info("만약 메뉴가 보이지 않는다면 왼쪽 상단 구석에 위치한 사이드바를 여세요")
     menu = st.sidebar.radio("메뉴를 선택하세요", ["업로드한 장소 데이터", "장소 검색"])
+    st.info("만약 메뉴가 보이지 않는다면 왼쪽 상단 구석에 위치한 사이드바를 여세요")
     
     if menu == "업로드한 장소 데이터":
         print_table(df, "업로드한 장소 데이터")
