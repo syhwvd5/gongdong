@@ -66,9 +66,6 @@ def average_chart(df, group, num):
 st.title("강원 생활 도우미 2.0")
 st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
 
-if df is None:
-    st.markdown("---")
-    home()
 st.markdown("---")
 df = load_file()
 
@@ -92,3 +89,6 @@ if df is not None:
 
         result = get_user_input(df)
         show_filter_places(result)
+else:
+    st.markdown("---")
+    home()
