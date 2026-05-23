@@ -16,7 +16,7 @@ def home():
     st.write(example)
 
 def load_file():
-    uploaded_file = st.file_uploader(
+    uploaded_file = st.sidebar.file_uploader(
         "장소 데이터 엑셀 파일을 업로드하세요", type=["xlsx"]
     )
     if uploaded_file is not None:
@@ -68,15 +68,14 @@ def average_chart(df, group, num):
 st.title("강원 생활 도우미 2.0")
 st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
 
+df = load_file()
+
+# 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
 if df is None:
     st.markdown("---")
     home()
 
-st.markdown("---")
-df = load_file()
-
-# 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
-if df is not None:
+elif df is not None:
     menu = st.sidebar.radio("메뉴를 선택하세요", ["업로드한 장소 데이터", "장소 검색"])
     st.info("만약 메뉴가 보이지 않는다면 왼쪽 상단 구석에 위치한 사이드바를 여세요")
     
