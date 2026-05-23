@@ -57,19 +57,22 @@ st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있
 
 df = load_file()
 
+menu = st.selectbox("메뉴를 선택하세요", ["업로드한 장소 데이터", "장소 검"])
+
 # 파일이 업로드된 경우에만 아래 로직이 실행됩니다.
 if df is not None:
-    print_table(df, "업로드한 장소 데이터")
+    if menu == "업로드한 장소 데이터":
+        print_table(df, "업로드한 장소 데이터")
+        st.markdown("---")
+        st.subheader("데이터 통계 시각화")
 
-    st.markdown("---")
-    st.subheader("조건별 장소 검색")
+        count_chart(df, "지역")
+        count_chart(df, "유형")
+        average_chart(df, "지역", "평점")
 
-    result = get_user_input(df)
-    show_filter_places(result)
+    elif menu == "장소 검색":
+        st.markdown("---")
+        st.subheader("조건별 장소 검색")
 
-    st.markdown("---")
-    st.subheader("데이터 통계 시각화")
-
-    count_chart(df, "지역")
-    count_chart(df, "유형")
-    average_chart(df, "지역", "평점")
+        result = get_user_input(df)
+        show_filter_places(result)
