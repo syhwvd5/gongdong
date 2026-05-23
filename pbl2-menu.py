@@ -95,6 +95,3 @@ if df is not None:
 
         result = get_user_input(df)
         show_filter_places(result)
-else:
-    st.markdown("---")
-    home()
