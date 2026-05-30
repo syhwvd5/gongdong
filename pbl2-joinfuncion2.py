@@ -20,6 +20,12 @@ def join_data(place_df, recommend_df):
 
     return merged_df
 
+def show_original_data(place_df, recommend_df):
+    st.subheader("장소정보 시트")
+    st.dataframe(place_df)
+
+    st.subheader("추천정보 시트")
+    st.dataframe(recommend_df)
 
 def show_joined_data(df):
     st.subheader("조인된 데이터")
@@ -78,4 +84,20 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
     place_df, recommend_df = load_data(uploaded_file)
     merged_df = join_data(place_df, recommend_df)
-    show_joined_data(merged_df)
+
+    menu = st.sidebar.radio(
+        "메뉴 선택",
+        ["원본 데이터 보기", "조인 데이터 보기", "추천 검색", "데이터 시각화"]
+    )
+
+    if menu == "원본 데이터 보기":
+        show_original_data(place_df, recommend_df)
+
+    elif menu == "조인 데이터 보기":
+        show_joined_data(merged_df)
+
+    elif menu == "추천 검색":
+        search_recommendations(merged_df)
+
+    elif menu == "데이터 시각화":
+        show_chart(merged_df)
