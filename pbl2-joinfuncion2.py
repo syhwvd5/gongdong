@@ -64,7 +64,7 @@ def search_recommendations(df):
         df["추천대상"].unique()
     )
 
-    selected_budget = st.sidebar.selectbox(
+    selected_budget = st.sidebar.number_input(
         "최대 예산",
         min_value=0,
         value=10000,
