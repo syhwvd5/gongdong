@@ -99,12 +99,12 @@ def show_chart(df):
     st.bar_chart(chart_data)
 
 uploaded_file = st.file_uploader(
-    "엑셀 파일을 업로드하세요",
     type=["xlsx"]
 )
 
 
 if uploaded_file is None:
+    "엑셀 파일을 업로드하세요"
     st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
     st.info("엑셀 파일을 업로드하면 데이터가 표시됩니다")
     st.markdown("---")
