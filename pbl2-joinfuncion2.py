@@ -44,27 +44,27 @@ def show_joined_data(df):
 def search_recommendations(df):
     st.subheader("추천 장소 검색")
 
-    selected_region = st.selectbox(
+    selected_region = st.sidebar.selectbox(
         "지역 선택",
         df["지역"].unique()
     )
 
-    selected_purpose = st.selectbox(
+    selected_purpose = st.sidebar.selectbox(
         "추천목적 선택",
         df["추천목적"].unique()
     )
 
-    selected_situation = st.selectbox(
+    selected_situation = st.sidebar.selectbox(
         "추천상황 선택",
         df["추천상황"].unique()
     )
 
-    selected_target = st.selectbox(
+    selected_target = st.sidebar.selectbox(
         "추천대상 선택",
         df["추천대상"].unique()
     )
 
-    selected_budget = st.number_input(
+    selected_budget = st.sidebar.selectbox(
         "최대 예산",
         min_value=0,
         value=10000,
@@ -89,7 +89,7 @@ def search_recommendations(df):
 def show_chart(df):
     st.subheader("데이터 시각화")
 
-    chart_option = st.selectbox(
+    chart_option = st.sidebar.selectbox(
         "시각화 기준 선택",
         ["지역", "유형", "추천목적", "추천상황", "추천대상", "예약필요"]
     )
@@ -116,7 +116,7 @@ if uploaded_file is not None:
     place_df, recommend_df = load_data(uploaded_file)
     merged_df = join_data(place_df, recommend_df)
 
-    menu = st.sidebar.radio(
+    menu = st.selectbox(
         "메뉴 선택",
         ["원본 데이터 보기", "조인 데이터 보기", "추천 검색", "데이터 시각화"]
     )
