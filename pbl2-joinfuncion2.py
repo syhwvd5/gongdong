@@ -42,7 +42,7 @@ def show_joined_data(df):
     st.dataframe(df)
 
 def search_recommendations(df):
-    st.subheader("추천 장소 검색")
+    st.sidebar.subheader("추천 장소 검색")
 
     selected_region = st.sidebar.selectbox(
         "지역 선택",
