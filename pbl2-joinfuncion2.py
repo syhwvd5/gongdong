@@ -128,7 +128,9 @@ if uploaded_file is not None:
         show_joined_data(merged_df)
 
     elif menu == "추천 검색":
+        st.info("왼쪽 상단 구석에 위치한 사이드바를 여세요")
         search_recommendations(merged_df)
 
     elif menu == "데이터 시각화":
+        st.info("왼쪽 상단 구석에 위치한 사이드바를 여세요")
         show_chart(merged_df)
