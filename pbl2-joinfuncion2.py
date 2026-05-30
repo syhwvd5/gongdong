@@ -89,7 +89,7 @@ def search_recommendations(df):
 def show_chart(df):
     st.subheader("데이터 시각화")
 
-    chart_option = st.sidebar.selectbox(
+    chart_option = st.selectbox(
         "시각화 기준 선택",
         ["지역", "유형", "추천목적", "추천상황", "추천대상", "예약필요"]
     )
