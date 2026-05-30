@@ -76,6 +76,19 @@ def search_recommendations(df):
     else:
         st.warning("조건에 맞는 추천 장소가 없습니다.")
 
+def show_chart(df):
+    st.subheader("데이터 시각화")
+
+    chart_option = st.selectbox(
+        "시각화 기준 선택",
+        ["지역", "유형", "추천목적", "추천상황", "추천대상", "예약필요"]
+    )
+
+    chart_data = df[chart_option].value_counts()
+
+    st.bar_chart(chart_data)
+
+
 uploaded_file = st.file_uploader(
     "엑셀 파일을 업로드하세요",
     type=["xlsx"]
