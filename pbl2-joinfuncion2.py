@@ -3,6 +3,16 @@ import pandas as pd
 
 st.title("강원생활도우미앱 3.0")
 
+uploaded_file = None
+
+def home():
+    st.subheader("앱 설명")
+    st.write("이 앱은 엑셀 파일을 업로드하고, 장소 데이터와 데이터를 차트로 시각화된 데이터를 확인하고, 조건에 맞는 장소를 검색하는 앱입니다.")
+
+    st.write("엑셀 파일에는 최소한 다음과 같은 데이터가 있어야합니다.")
+
+    example = ["이름", "지역", "유형", "실내여부", "예산", "평점", "추천목적", "추천상황", "추천대상", "예약필요"]
+    st.write(example)
 
 def load_data(uploaded_file):
     place_df = pd.read_excel(uploaded_file, sheet_name="장소정보")
@@ -95,7 +105,10 @@ uploaded_file = st.file_uploader(
 
 
 if uploaded_file is None:
+    st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
     st.info("엑셀 파일을 업로드하면 데이터가 표시됩니다")
+    st.markdown("---")
+    home()
     
 
 
