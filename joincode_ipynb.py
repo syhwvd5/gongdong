@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import pandas as pd
-from google.colab import files
+import streamlit as st
 
 # 1. 엑셀 파일 업로드
 uploaded = files.upload()
