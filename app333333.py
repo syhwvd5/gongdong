@@ -1,0 +1,143 @@
+# app.py
+import streamlit as st
+import pandas as pd
+st.title("강원생활도우미앱 3.0")
+uploaded_file = None
+def home():
+    st.subheader("앱 설명")
+    st.write("이 앱은 엑셀 파일을 업로드하고, 장소 데이터와 데이터를 차트로 시각화된 데이터를 확인하고, 조건에 맞는 장소를 검색하는 앱입니다.")
+    st.write("엑셀 파일에는 최소한 다음과 같은 데이터가 있어야합니다.")
+    example = ["이름", "지역", "유형", "실내여부", "예산", "평점", "추천목적", "추천상황", "추천대상", "예약필요"]
+    st.write(example)
+def load_data(uploaded_file):
+    place_df = pd.read_excel(uploaded_file, sheet_name="장소정보")
+    recommend_df = pd.read_excel(uploaded_file, sheet_name="추천정보")
+    return place_df, recommend_df
+def join_data(place_df, recommend_df):
+    merged_df = pd.merge(
+        recommend_df,
+        place_df,
+        on="place_id",
+        how="left"
+    )
+    return merged_df
+def show_original_data(place_df, recommend_df):
+    st.subheader("장소정보 시트")
+    st.dataframe(place_df)
+    st.subheader("추천정보 시트")
+    st.dataframe(recommend_df)
+def show_joined_data(df):
+    st.subheader("조인된 데이터")
+    st.dataframe(df)
+
+
+# [확장 기능 1 - 기본] 평점 높은 순 정렬
+# [확장 기능 2 - 중간] 추천 이유 문장 출력
+# 아래 세 함수는 새로 추가된 함수
+
+def sort_by_rating(df):
+    """검색 결과를 평점 기준 내림차순으로 정렬해서 돌려준다."""
+    out = df.copy()
+    return out.sort_values("평점", ascending=False).reset_index(drop=True)
+
+def make_reason(row):
+    """한 장소(행)에 대한 추천 이유 문장을 만든다."""
+    parts = []
+    if row["실내여부"] == "예":
+        parts.append("실내여서 날씨 걱정이 없고")
+    if row["평점"] >= 4.5:
+        parts.append(f"평점이 {row['평점']}로 높고")
+    if row["예산"] <= 7000:
+        parts.append(f"예산이 {row['예산']}원으로 저렴해")
+    if not parts:
+        return f"{row['이름']}은(는) 평점 {row['평점']}, 예산 {row['예산']}원인 곳이에요."
+    return f"{row['이름']}은(는) " + ", ".join(parts) + " 추천해요."
+
+def add_recommend_reason(df):
+    """검색 결과 각 행에 '추천이유' 열을 추가해서 돌려준다. (원본은 건드리지 않음)"""
+    out = df.copy()
+    out["추천이유"] = out.apply(make_reason, axis=1)
+    return out
+
+def search_recommendations(df):
+    st.sidebar.subheader("추천 장소 검색")
+    selected_region = st.sidebar.selectbox(
+        "지역 선택",
+        df["지역"].unique()
+    )
+    selected_purpose = st.sidebar.selectbox(
+        "추천목적 선택",
+        df["추천목적"].unique()
+    )
+    selected_situation = st.sidebar.selectbox(
+        "추천상황 선택",
+        df["추천상황"].unique()
+    )
+    selected_target = st.sidebar.selectbox(
+        "추천대상 선택",
+        df["추천대상"].unique()
+    )
+    selected_budget = st.sidebar.number_input(
+        "최대 예산",
+        min_value=0,
+        value=10000,
+        step=1000
+    )
+    
+    result = df[
+        (df["지역"] == selected_region) &
+        (df["추천목적"] == selected_purpose) &
+        (df["추천상황"] == selected_situation) &
+        (df["추천대상"] == selected_target) &
+        (df["예산"] <= selected_budget)
+    ]
+    st.subheader("검색 결과")
+    if len(result) > 0:
+        st.dataframe(result)
+
+        # 새로 추가된 부분
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.checkbox("평점 높은 순으로 정렬해서 보기"):
+                st.dataframe(sort_by_rating(result))
+        with col2:
+            if st.checkbox("추천 이유 함께 보기"):
+                st.dataframe(add_recommend_reason(result))
+        # 새로 추가된 부분 끝
+    else:
+        st.warning("조건에 맞는 추천 장소가 없습니다.")
+def show_chart(df):
+    st.subheader("데이터 시각화")
+    chart_option = st.sidebar.radio(
+        "시각화 기준 선택",
+        ["지역", "유형", "추천목적", "추천상황", "추천대상", "예약필요"]
+    )
+    chart_data = df[chart_option].value_counts()
+    st.bar_chart(chart_data)
+uploaded_file = st.file_uploader(
+    "엑셀 파일을 업로드하세요",
+    type=["xlsx"]
+)
+if uploaded_file is None:
+    st.write("엑셀 파일을 업로드하면 장소 데이터를 확인할 수 있습니다.")
+    st.info("엑셀 파일을 업로드하면 데이터가 표시됩니다")
+    st.markdown("---")
+    home()
+    
+if uploaded_file is not None:
+    place_df, recommend_df = load_data(uploaded_file)
+    merged_df = join_data(place_df, recommend_df)
+    menu = st.selectbox(
+        "메뉴 선택",
+        ["원본 데이터 보기", "조인 데이터 보기", "추천 검색", "데이터 시각화"]
+    )
+    if menu == "원본 데이터 보기":
+        show_original_data(place_df, recommend_df)
+    elif menu == "조인 데이터 보기":
+        show_joined_data(merged_df)
+    elif menu == "추천 검색":
+        st.info("왼쪽 상단 구석에 위치한 사이드바를 여세요")
+        search_recommendations(merged_df)
+    elif menu == "데이터 시각화":
+        st.info("왼쪽 상단 구석에 위치한 사이드바를 여세요")
+        show_chart(merged_df)
